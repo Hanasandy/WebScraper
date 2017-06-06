@@ -42,7 +42,7 @@ app.engine("handlebars", exphbs({ defaultLayout: "main", layoutsDir: __dirname +
 app.set("view engine", "handlebars");
 
 // Database configuration with mongoose
-mongoose.connect("mongodb://localhost/NYTimesScrape");
+mongoose.connect("mongodb://heroku_d73t9500:93td7k4cek5v4uen5otdhr2dd@ds111882.mlab.com:11882/heroku_d73t9500");
 var db = mongoose.connection;
 
 // Show any mongoose errors
