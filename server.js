@@ -8,6 +8,8 @@ var express = require("express");
 var bodyParser = require("body-parser");
 //var logger = require("morgan");
 var mongoose = require("mongoose");
+var methodOverride = require("method-override");
+var path = require("path");
 // var exphbs = require("express-handlebars");
 
 // Requiring our Note and Article models
@@ -20,10 +22,11 @@ var cheerio = require("cheerio");
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 mongoose.Promise = Promise;
-var PORT = process.env.PORT || 3000;
+
 
 // Initialize Express
 var app = express();
+var PORT = process.env.PORT || 3000;
 
 // Use morgan and body parser with our app
 // app.use(logger("dev"));
@@ -113,27 +116,6 @@ app.get("/scrape", function(req, res) {
 });
 
 
-// Grab an article by it's ObjectId
-app.get("/notes/:id", function(req, res) {
-  // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-  Article.find({ "_id": req.params.id }, { "saved": true })
-  // ..and populate all of the notes associated with it
-  .populate("note")
-  // now, execute our query
-  .exec(function(error, doc) {
-    // Log any errors
-    if (error) {
-      console.log(error);
-    }
-    // Otherwise, send the doc to the browser as a json object
-    else {
-      var notesItem = { Article: doc };
-      res.render( "notes", notesItem);
-    }
-  });
-});
-
-
 // Create a new note or replace an existing note
 app.post("/notes/:id", function(req, res) {
   // Create a new note and pass the req.body to the entry
@@ -165,6 +147,28 @@ app.post("/notes/:id", function(req, res) {
   });
 });
 
+
+// Grab an article by it's ObjectId
+app.get("/notes/:id", function(req, res) {
+  // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+  Article.find({ "_id": req.params.id })
+  // ..and populate all of the notes associated with it
+  .populate("note")
+  // now, execute our query
+  .exec(function(error, doc) {
+    // Log any errors
+    if (error) {
+      console.log(error);
+    }
+    // Otherwise, send the doc to the browser as a json object
+    else {
+      var notesItem = { Article: doc };
+      res.render( "notes", notesItem);
+    }
+  });
+});
+
+
 // Delete
 app.get("/delete:id", function(req, res) {
   Note.remove({ "_id": req.params.id })
@@ -180,6 +184,6 @@ app.get("/delete:id", function(req, res) {
 });
 
 // Listen on port 3000
-app.listen(3000, function() {
+app.listen(PORT, function() {
   console.log("App running on port 3000!");
 });
