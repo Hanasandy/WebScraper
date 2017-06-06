@@ -40,8 +40,13 @@ app.use(express.static("public"));
 // Set Handlebars.
 var exphbs = require("express-handlebars");
 
-app.set('views', __dirname + '/views');
-app.engine("handlebars", exphbs({ defaultLayout: "main", layoutsDir: __dirname + "/views/layouts" }));
+//Setting handlebars as view engine
+// app.set('views', __dirname + '/views');
+// app.engine("handlebars", exphbs({ defaultLayout: "main", layoutsDir: __dirname + "/views/layouts" }));
+// app.set("view engine", "handlebars");
+app.engine("handlebars", exphbs({
+    defaultLayout: "main"
+}));
 app.set("view engine", "handlebars");
 
 // Database configuration with mongoose
