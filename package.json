@@ -1,0 +1,31 @@
+{
+  "name": "mongoose_skeleton",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cheerio": "^0.20.0",
+    "express": "^4.15.3",
+    "express-handlebars": "^3.0.0",
+    "mongoose": "^4.10.4",
+    "morgan": "^1.8.2",
+    "request": "^2.81.0"
+  },
+  "keywords": [],
+  "description": "",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hanasandy/WebScraper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Hanasandy/WebScraper/issues"
+  },
+  "homepage": "https://github.com/Hanasandy/WebScraper#readme"
+}

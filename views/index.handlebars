@@ -1,0 +1,35 @@
+<div class = "container" >
+  <div class="jumbotron">
+       <h1>New York Times Scraped</h1>
+         <a href="/scrape"> <button type="button" class="btn btn-info scrape" > Scrape Articles </button></a>
+  </div>
+  <div class="article-container">
+
+      {{#each Article}}
+
+      <div class="row">
+            <div class="panel panel-default">
+              <div class="panel-heading">{{this.title}}
+              <a href="/notes/{{this._id}}">
+              <button type="button" class="btn btn-success save-article" >See Note</button> </a>
+            </div>
+
+            <div class="panel-body">
+              <a href= "https://www.nytimes.com/"{{this.link}}" target="_blank"> {{this.link}}</a>
+            </div>
+      </div>
+  </div>
+
+      {{/each}}
+      
+</div>
+
+
+<!-- Footer -->
+<footer class="footer container">
+  <a href="/">Home</a>
+</footer>
+
+</div>
+<script>
+</script>
