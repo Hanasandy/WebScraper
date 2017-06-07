@@ -69,16 +69,19 @@ db.once("open", function() {
 
 //home page
 app.get("/", function(req, res) {
-    Article.find({})
-    .exec(function (error, doc) {
-      if (error) {
-        res.send(error);
-      }
-      else {
-        var newArticle = { Article: doc };
-        res.render("index", newArticle);
-      }
-    });
+  Article.find({}, function(error, doc) {
+    if (error) {
+      console.log(error);
+    }
+    else {
+      var articleObj = {
+        Article: doc
+      };
+      res.render("index", articleObj);
+    }
+  })
+  .sort({ titile: 1})
+  .limit(25);
 });
 
 // A GET request to scrape the echojs website
@@ -88,13 +91,13 @@ app.get("/scrape", function(req, res) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(html);
     // Now, we grab every h2 within an article tag, and do the following:
-    $("h2.story-heading").each(function(i, element) {
+    $("article h2").each(function(i, element) {
 
       // Save an empty result object
       var result = {};
 
       // Add the text and href of every link, and save them as properties of the result object
-      result.title = $(this).children("a").text();
+      result.title = $(this).children("a").text().trim();
       result.link = $(this).children("a").attr("href");
 
       // Using our Article model, create a new entry
